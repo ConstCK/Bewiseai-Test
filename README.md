@@ -13,7 +13,7 @@ PASSWORD = admin
 Выполните команду в терминале из каталога проекта: docker-compose up
 
 EndPoints:
-http://127.0.0.1:8000/api/ - post запрос с body {"number": Ваше число}
+http://127.0.0.1:8000/api/ - post запрос с body {"questions_num": Ваше число}
 Примечание:
 используйте Postman для запросов
 

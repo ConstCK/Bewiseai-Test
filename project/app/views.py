@@ -1,27 +1,27 @@
 from django.db import IntegrityError
+from django.http import HttpRequest
 from django.utils.datastructures import MultiValueDictKeyError
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 import requests
-
 
 from .models import Quiz
 from .serializers import QuizSerializer
 
 
 @api_view(["get", "post"])
-def get_data(request):
+def get_data(request: HttpRequest) -> Response:
     if request.method == "POST":
         try:
-            number: int = request.POST["number"]
+            number: int = request.POST["questions_num"]
         except MultiValueDictKeyError:
             return Response("Ошибка запроса...")
 
         while True:
             try:
-                r = requests.get("https://jservice.io/api/random", params={"count": number})
-                data = r.json()
-                counter = len(data)
+                r: requests.Response = requests.get("https://jservice.io/api/random", params={"count": number})
+                data: dict = r.json()
+                counter: int = len(data)
                 if data:
                     for i in data:
                         try:
@@ -40,6 +40,8 @@ def get_data(request):
                         except IntegrityError:
                             continue
                         number = counter
+                else:
+                    return Response("Данные отсутствуют...")
 
             except:
                 return Response("Ошибка запроса...")
