@@ -9,6 +9,7 @@ DB_NAME = quizdb
 USER_NAME = postgres
 PASSWORD = admin
 
+Запустите Docker Desktop для дальнейшей работы!
 Выполните команду в терминале из каталога проекта: docker-compose up
 
 EndPoints:
